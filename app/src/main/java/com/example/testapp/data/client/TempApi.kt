@@ -1,4 +1,4 @@
 package com.example.testapp.data.client
 
-interface RickAndMortyApi {
+interface TempApi {
 }
