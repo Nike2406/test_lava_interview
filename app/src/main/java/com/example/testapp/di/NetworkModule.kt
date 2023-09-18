@@ -1,15 +1,14 @@
 package com.example.testapp.di
 
+import com.example.testapp.data.client.PoketmonApi
 import com.example.testapp.data.client.RickAndMortyApi
 import com.example.testapp.data.client.intrceptor.LoggingInterceptor
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -35,7 +34,7 @@ class NetworkModule {
     @Provides
     fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BASE_RICK_AND_MORTY_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
@@ -43,13 +42,20 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRaPApi(retrofit: Retrofit): RickAndMortyApi {
+    fun providePoketmonApi(retrofit: Retrofit): PoketmonApi {
+        return retrofit.create()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRickAndMortyApi(retrofit: Retrofit): RickAndMortyApi {
         return retrofit.create()
     }
 
 
     companion object {
 
-        private const val BASE_URL = "https://pokeapi.co/api/v2/"
+        private const val BASE_POCKETMON_URL = "https://pokeapi.co/api/v2/"
+        private const val BASE_RICK_AND_MORTY_URL = "https://rickandmortyapi.com/api/"
     }
 }

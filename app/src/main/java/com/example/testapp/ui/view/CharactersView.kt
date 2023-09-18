@@ -1,5 +1,6 @@
 package com.example.testapp.ui.view
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,14 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun CharactersView(viewModel: CharactersViewModel = hiltViewModel()) {
-    val character = viewModel.characters.collectAsStateWithLifecycle()
+    val result = viewModel.characters.collectAsStateWithLifecycle()
 
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Column{
-                    Text(character.value.name ?: "")
-                    Text(text = character.value.locationAreaEncounters ?: "1")
+            LazyColumn(modifier = Modifier.fillMaxWidth()) {
+                items(result.value.results){ character ->
+                    Column {
+                        Text(character.name ?: "")
+                        Text(text = character.gender ?: "")
+                    }
                 }
     }
 }

@@ -2,7 +2,7 @@ package com.example.testapp.data.model
 import com.google.gson.annotations.SerializedName
 
 
-data class CharactersModel(
+data class PoketmonModel(
     @SerializedName("abilities")
     val abilities: List<Ability>? = listOf(),
     @SerializedName("base_experience")
